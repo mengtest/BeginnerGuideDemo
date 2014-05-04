@@ -40,6 +40,7 @@ function MainScene:ctor()
         })
 
     local menu = ui.newMenu({button_1, button_2, button_3}):addTo(self)
+    -- menu:setTouchPriority(kCCMenuHandlerPriority + 20)
     
     local myteachlayer = teachlayer:new({x = display.cx - 200, y = display.cy}):addTo(self)
     local label = ui.newTTFLabel({

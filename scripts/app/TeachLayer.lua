@@ -7,6 +7,8 @@ local TeachLayer = class("TeachLayer", function(rect) return display.newLayer() 
 
 function TeachLayer:ctor(param,args)
     self:setTouchEnabled(true)
+    self:setTouchPriority(kCCMenuHandlerPriority - 1)
+    self:setTouchMode(kCCTouchesOneByOne)
     self:addTouchEventListener(function(event, x, y)
         if event == "began" then
             local rect = CCRectMake(args["x"] - 60, args["y"] - 60, 120, 120)
@@ -14,13 +16,15 @@ function TeachLayer:ctor(param,args)
 
             if rect:containsPoint(touchposition) then
                 print("Yes")
-                return true
+                return false
             else
                 print("NO")
-                return false
+                return true
             end
         end
-    end, false, -128, false)
+    end, false, -128, true)
+
+    print("触摸优先级:", self:getTouchPriority())
 
     -- 裁剪图层
     local pClip = CCClippingNode:create()
